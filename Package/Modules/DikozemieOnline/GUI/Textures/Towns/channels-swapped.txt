@@ -1,0 +1,1 @@
+Red and blue are exchanged in these images: see Tools/build_town_pictures.py

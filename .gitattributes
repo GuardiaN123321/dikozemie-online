@@ -1,0 +1,2 @@
+# Keep every file byte for byte as in the Nexus archive (CRLF stays CRLF).
+* -text

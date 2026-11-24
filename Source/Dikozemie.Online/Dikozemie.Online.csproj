@@ -1,0 +1,146 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Platforms>x64</Platforms>
+    <Configurations>Client;Server</Configurations>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <BannerlordGameDir Condition="'$(BannerlordGameDir)' == '' and Exists('C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.dll')">C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</BannerlordGameDir>
+    <BannerlordGameDir Condition="'$(BannerlordGameDir)' == '' and Exists('D:\SteamLibrary\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.dll')">D:\SteamLibrary\steamapps\common\Mount &amp; Blade II Bannerlord</BannerlordGameDir>
+    <BannerlordGameDir Condition="'$(BannerlordGameDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</BannerlordGameDir>
+    <BannerlordServerDir Condition="'$(BannerlordServerDir)' == '' and Exists('D:\SteamLibrary\steamapps\common\Mount &amp; Blade II Dedicated Server\bin\Win64_Shipping_Server\TaleWorlds.MountAndBlade.dll')">D:\SteamLibrary\steamapps\common\Mount &amp; Blade II Dedicated Server</BannerlordServerDir>
+    <BannerlordServerDir Condition="'$(BannerlordServerDir)' == '' and Exists('C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Dedicated Server\bin\Win64_Shipping_Server\TaleWorlds.MountAndBlade.dll')">C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Dedicated Server</BannerlordServerDir>
+    <BannerlordServerDir Condition="'$(BannerlordServerDir)' == ''">D:\SteamLibrary\steamapps\common\Mount &amp; Blade II Dedicated Server</BannerlordServerDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+    <OutputPath>..\..\bin\Win64_Shipping_Client\</OutputPath>
+    <DefineConstants>CLIENT;NO_SELF_UPDATE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Server|x64'">
+    <OutputPath>..\..\bin\Win64_Shipping_Server\</OutputPath>
+    <DefineConstants>SERVER</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="TaleWorlds.PlayerServices">
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.PlayerServices.dll</HintPath>
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Server|x64'">$(BannerlordServerDir)\bin\Win64_Shipping_Server\TaleWorlds.PlayerServices.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.Diamond">
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.Diamond.dll</HintPath>
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Server|x64'">$(BannerlordServerDir)\bin\Win64_Shipping_Server\TaleWorlds.Diamond.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.MountAndBlade.Diamond">
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.Diamond.dll</HintPath>
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Server|x64'">$(BannerlordServerDir)\bin\Win64_Shipping_Server\TaleWorlds.MountAndBlade.Diamond.dll</HintPath>
+    </Reference>
+    <Compile Remove="ClientOnly\**" Condition="'$(Configuration)|$(Platform)' == 'Server|x64'" />
+    <Compile Include="ClientOnly\DikozemieArenaOpponentCatalog.cs" Condition="'$(Configuration)|$(Platform)' == 'Server|x64'" />
+    <Compile Include="ClientOnly\DikozemieNativePerkCatalog.cs" Condition="'$(Configuration)|$(Platform)' == 'Server|x64'" />
+    <Compile Include="ClientOnly\DikozemieNavalBattleCatalog.cs" Condition="'$(Configuration)|$(Platform)' == 'Server|x64'" />
+    <Compile Include="ClientOnly\DikozemieNavalRewardRules.cs" Condition="'$(Configuration)|$(Platform)' == 'Server|x64'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Numerics.Vectors" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.Core">
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.Core.dll</HintPath>
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Server|x64'">$(BannerlordServerDir)\bin\Win64_Shipping_Server\TaleWorlds.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.ModuleManager">
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.ModuleManager.dll</HintPath>
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Server|x64'">$(BannerlordServerDir)\bin\Win64_Shipping_Server\TaleWorlds.ModuleManager.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.DotNet">
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.DotNet.dll</HintPath>
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Server|x64'">$(BannerlordServerDir)\bin\Win64_Shipping_Server\TaleWorlds.DotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.Engine">
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.Engine.dll</HintPath>
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Server|x64'">$(BannerlordServerDir)\bin\Win64_Shipping_Server\TaleWorlds.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.ObjectSystem">
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.ObjectSystem.dll</HintPath>
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Server|x64'">$(BannerlordServerDir)\bin\Win64_Shipping_Server\TaleWorlds.ObjectSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.Library">
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.Library.dll</HintPath>
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Server|x64'">$(BannerlordServerDir)\bin\Win64_Shipping_Server\TaleWorlds.Library.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.Localization">
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.Localization.dll</HintPath>
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Server|x64'">$(BannerlordServerDir)\bin\Win64_Shipping_Server\TaleWorlds.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.MountAndBlade">
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.dll</HintPath>
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Server|x64'">$(BannerlordServerDir)\bin\Win64_Shipping_Server\TaleWorlds.MountAndBlade.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.MountAndBlade.Multiplayer">
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">$(BannerlordGameDir)\Modules\Multiplayer\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.Multiplayer.dll</HintPath>
+      <HintPath Condition="'$(Configuration)|$(Platform)' == 'Server|x64'">$(BannerlordServerDir)\bin\Win64_Shipping_Server\TaleWorlds.MountAndBlade.Multiplayer.dll</HintPath>
+    </Reference>
+
+    <Reference Include="TaleWorlds.Engine.GauntletUI" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.Engine.GauntletUI.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.GauntletUI" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.GauntletUI.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.GauntletUI.Data" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.GauntletUI.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.TwoDimension" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.TwoDimension.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.ScreenSystem" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.ScreenSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.InputSystem" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.InputSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.MountAndBlade.ViewModelCollection" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.ViewModelCollection.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.Core.ViewModelCollection" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.Core.ViewModelCollection.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.MountAndBlade.GauntletUI" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.GauntletUI.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.MountAndBlade.GauntletUI.Widgets" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.GauntletUI.Widgets.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.MountAndBlade.View" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.View.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.MountAndBlade.Multiplayer.ViewModelCollection" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\Modules\Multiplayer\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.Multiplayer.ViewModelCollection.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.MountAndBlade.Multiplayer.GauntletUI" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\Modules\Multiplayer\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.Multiplayer.GauntletUI.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.MountAndBlade.Multiplayer.View" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\Modules\Multiplayer\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.Multiplayer.View.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.CampaignSystem" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.CampaignSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="TaleWorlds.SaveSystem" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.SaveSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="SandBox" Condition="'$(Configuration)|$(Platform)' == 'Client|x64'">
+      <HintPath>$(BannerlordGameDir)\Modules\SandBox\bin\Win64_Shipping_Client\SandBox.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemDefinitionGroup>
+    <Reference>
+      <Private>false</Private>
+    </Reference>
+  </ItemDefinitionGroup>
+</Project>
