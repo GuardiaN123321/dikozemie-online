@@ -19,9 +19,12 @@ This repository holds the source code of `Dikozemie.Online.dll`, the only compil
 
 The rest of the archive is data: XML, JSON, CSV/TSV, scenes and PNG/JPG images. It holds no other executable code.
 
-Nexus file: *Dikozemie Online 0.5.134*, `Arena-Dikozemie-0.5.134-nexus.zip`
-SHA-256 `fe54dbbc31119f0bad546dbb87c7de6efc72a854894fdde235ca2bfa17cbb2dd`
-The DLL inside it, `Modules/DikozemieOnline/bin/Win64_Shipping_Client/Dikozemie.Online.dll`, has 1 842 176 bytes and SHA-256 `1acc33b6c5a191b8c08ec8809c3a633b4eb4b33a866d3b94bb6b27e9c377b77e`.
+The Nexus file and its DLL:
+
+- *Dikozemie Online 0.5.134*, `Arena-Dikozemie-0.5.134-nexus.zip`:
+  SHA-256 `fe54dbbc31119f0bad546dbb87c7de6efc72a854894fdde235ca2bfa17cbb2dd`
+- `Modules/DikozemieOnline/bin/Win64_Shipping_Client/Dikozemie.Online.dll` inside it: 1 842 176 bytes,
+  SHA-256 `1acc33b6c5a191b8c08ec8809c3a633b4eb4b33a866d3b94bb6b27e9c377b77e`
 
 ## Build
 
